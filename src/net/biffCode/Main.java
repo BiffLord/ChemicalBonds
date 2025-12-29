@@ -13,7 +13,7 @@ public class Main {
         GameScreen screen = new GameScreen();
         window.add(screen);
         window.pack();
-        window.setIconImage(new ImageIcon(Main.class.getResource("/resources/Bonds.png")).getImage());
+        window.setIconImage(new ImageIcon(Main.class.getResource("/Bonds.png")).getImage());
         window.setLocationRelativeTo(null);
 
         window.setVisible(true);

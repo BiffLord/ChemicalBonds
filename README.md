@@ -15,3 +15,4 @@ These are the two major types of bonds. Covalent involves sharing of electrons w
 * The code is mostly based off of RyiSnow's 2d game tutorial
 * Parts of code that control things specific to this game are by me
 * No libraries needed, just Java
+* Paused development- probably won't be renewed lol

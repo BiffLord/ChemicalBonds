@@ -1,6 +1,7 @@
 package net.biffCode.entity;
 
 import net.biffCode.GameScreen;
+import net.biffCode.tiles.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class Player extends Entity{
         this.loadSpriteSheet();
         direction= "face fore";
         this.setKeyListner();
+        hitBox = new Rectangle(16,0,32,32);
     }
     public void setDefault(){
         worldX = screen.tileSize*0;
@@ -50,6 +52,8 @@ public class Player extends Entity{
             worldX +=4;
             direction = "right";
         }
+        collisionOn = false;
+        screen.colide.checkTile(this);
     }
     public void draw(Graphics2D g2d){
         int x = Math.abs(spriteIcon * 32);
@@ -72,7 +76,7 @@ public class Player extends Entity{
        }
     public void loadSpriteSheet(){
         try {
-            spriteSheet = ImageIO.read(getClass().getResource("/resources/entity/player.png"));
+            spriteSheet = ImageIO.read(getClass().getResource("/entity/player.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

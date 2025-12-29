@@ -5,6 +5,7 @@ import net.biffCode.GameScreen;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
+import java.util.Objects;
 
 public class TileManager {
     GameScreen screen;
@@ -16,18 +17,19 @@ public class TileManager {
         tiles = new Tile[10];
         mapTiles = new int[screen.totalColumns][screen.totalRows];
         getTileImage();
-        loadMap("/resources/maps/map1.txt");
+        loadMap("/maps/map1.txt");
     }
     public void getTileImage(){
         try {
             tiles[0] = new Tile();
-            tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/resources/Tiles/brick00.png"));
+            tiles[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/Brick00.png")));
+            tiles[0].collision = true;
             tiles[1] = new Tile();
-            tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/resources/Tiles/grass00.png"));
+            tiles[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/Grass00.png")));
             tiles[2] = new Tile();
-            tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/resources/Tiles/grass01.png"));
+            tiles[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/Grass01.png")));
             tiles[3] = new Tile();
-            tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/resources/Tiles/brick01.png"));
+            tiles[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Tiles/Brick01.png")));
         } catch(IOException IOE){
             IOE.printStackTrace();
         }
@@ -61,17 +63,23 @@ public class TileManager {
         int worldRow = 0;
 
         while (worldColumn < screen.totalColumns && worldRow < screen.totalRows){
-            int x = worldColumn*screen.tileSize - screen.player.worldX;
-            int y = worldRow*screen.tileSize - screen.player.worldY;
-            g2d.drawImage(tiles[mapTiles[worldColumn][worldRow]].image,x,y,screen.tileSize, screen.tileSize, null);
+            int worldX = worldColumn*screen.tileSize;
+            int worldY = worldRow*screen.tileSize;
+            int x = worldX - screen.player.worldX +screen.player.screenX;
+            int y = worldY - screen.player.worldY+screen.player.screenY;
+            if (worldX > screen.player.worldX - screen.player.screenX -64 &&
+                    worldX < screen.player.worldX + screen.player.screenX+64 &&
+                    worldY > screen.player.worldY - screen.player.screenY -64 &&
+                    worldY < screen.player.worldY + screen.player.screenY+64){
+                g2d.drawImage(tiles[mapTiles[worldColumn][worldRow]].image, x, y, screen.tileSize, screen.tileSize, null);
+            }
             worldColumn++;
-            if (worldColumn == screen.totalColumns){
+            if (worldColumn == screen.totalColumns) {
                 worldColumn = 0;
                 worldRow++;
             }
         }
-
     }
 
-
 }
+

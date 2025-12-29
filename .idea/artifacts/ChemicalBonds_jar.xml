@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChemicalBonds:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ChemicalBonds_jar</output-path>
+    <root id="archive" name="ChemicalBonds.jar">
+      <element id="module-output" name="ChemicalBonds" />
+    </root>
+  </artifact>
+</component>

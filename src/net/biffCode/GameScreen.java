@@ -18,6 +18,7 @@ public class GameScreen extends JPanel implements Runnable{
     int FPS = 60;
     public Player player = new Player(this);
     TileManager tiler = new TileManager(this);
+    public CollisonCheck colide = new CollisonCheck(this);
 
     //map stuffs
     public final int totalColumns = 17;
